@@ -200,6 +200,16 @@
                 return result;
             }
 
+            string langParam = Request.Params["selectedItemLang"];
+            Language language = Language.Current;
+            if (!string.IsNullOrEmpty(langParam))
+            {
+                if (!Language.TryParse(langParam, out language))
+                {
+                    language = Language.Current;
+                }
+            }
+
             var uploadPipelineArgs = new UploadArgs
             {
                 Files = System.Web.HttpContext.Current.Request.Files,
@@ -208,7 +218,7 @@
                 Overwrite = false,
                 Unpack = false,
                 Versioned = Settings.Media.UploadAsVersionableByDefault,
-                Language = Language.Current,
+                Language = language,
                 CloseDialogOnEnd = false
             };
 

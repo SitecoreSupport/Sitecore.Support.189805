@@ -217,11 +217,21 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
         },
 
         setUploadUrl: function () {
-            this.url = "/sitecore/shell/api/sitecore/Media/Upload?database=" + this.databaseName;
+            this.url = "/sitecore/shell/api/sitecore/SupportMedia/Upload?database=" + this.databaseName;
             this.url += "&sc_content=" + this.databaseName;
             var destination = this.model.get("destinationUrl");
             if (destination !== null) {
                 this.url += "&destinationUrl=" + this.model.get("destinationUrl");
+            }
+
+            var tempURL = this.$el.context.URL;
+            var langStartPosition = tempURL.indexOf("lang");
+            if (langStartPosition > -1) {
+                var langEndPosition = tempURL.indexOf("%2", langStartPosition);
+                if (langEndPosition > langStartPosition) {
+                    var itemLang = tempURL.substring(langStartPosition + 7, langEndPosition);
+                    this.url += "&selectedItemLang=" + itemLang;
+                }
             }
 
             this.$el.find(".sc-uploader-fileupload").attr("data-url", this.url);
