@@ -163,7 +163,8 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
             { name: "totalSize", defaultValue: "0 bytes" },
             { name: "uploadedSize", defaultValue: "0 bytes" },
             { name: "queueWasAborted", defaultValue: null },
-            { name: "database", value: "$el.data:sc-databasename" }
+            { name: "database", value: "$el.data:sc-databasename" },
+            { name: "uploadEnabled", defaultValue: false } //XAContext change
         ],
         extendModel: {
             set: function (key, value, options) {
@@ -203,6 +204,7 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
             this.collection.on("add", this.fileAdded, this);
             this.collection.on("remove", this.refreshNumberFiles(false), this);
             this.refreshNumberFiles(false);
+            this.getUploadEnabled();//XAContext change
             this.domElements = {
                 infoUploadingDataPanels: this.$el.find(".sc-uploader-general-info-data-uploadingData"),
                 infoDataPanel: this.$el.find(".sc-uploader-general-info-data"),
@@ -214,24 +216,16 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
 
         changeDestinationUrl: function () {
             this.setUploadUrl();
+            this.getUploadEnabled();//XAContext change
         },
 
         setUploadUrl: function () {
-            this.url = "/sitecore/shell/api/sitecore/SupportMedia/Upload?database=" + this.databaseName;
+            this.url = "/sitecore/shell/api/sitecore/Media/Upload?database=" + this.databaseName;
             this.url += "&sc_content=" + this.databaseName;
+
             var destination = this.model.get("destinationUrl");
             if (destination !== null) {
                 this.url += "&destinationUrl=" + this.model.get("destinationUrl");
-            }
-
-            var tempURL = this.$el.context.URL;
-            var langStartPosition = tempURL.indexOf("lang");
-            if (langStartPosition > -1) {
-                var langEndPosition = tempURL.indexOf("%2", langStartPosition);
-                if (langEndPosition > langStartPosition) {
-                    var itemLang = tempURL.substring(langStartPosition + 7, langEndPosition);
-                    this.url += "&selectedItemLang=" + itemLang;
-                }
             }
 
             this.$el.find(".sc-uploader-fileupload").attr("data-url", this.url);
@@ -247,6 +241,40 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
 
         getUploadedSize: function () {
             return bytesToSize(uploadedSize);
+        },
+        //XAContext change
+        getUploadEnabled: function () {
+            var that = this,
+                databaseUri,
+                escapedPath = null,
+                first = false,
+                selectedDestinationUrlParts,
+                i;
+
+            this.model.set("uploadEnabled", false);
+
+            databaseUri = new _sc.Definitions.Data.DatabaseUri("master"),
+                database = new _sc.Definitions.Data.Database(databaseUri);
+
+            selectedDestinationUrlParts = this.model.get("destinationUrl").split("/");
+
+            for (i = 0; i < selectedDestinationUrlParts.length; i++) {
+                if (selectedDestinationUrlParts[i].indexOf("-") > 0) {
+                    selectedDestinationUrlParts[i] = "#" + selectedDestinationUrlParts[i].trim("#") + "#";
+                }
+            }
+            for (i = 0; i < selectedDestinationUrlParts.length; i++) {
+                if (!first) {
+                    escapedPath = selectedDestinationUrlParts[i];
+                }
+                else {
+                    escapedPath = escapedPath + "/" + selectedDestinationUrlParts[i];
+                }
+                first = true;
+            }
+            database.query(escapedPath, function (itemsFromQueryArray) {
+                that.model.set("uploadEnabled", (that.model.get("hasFilesToUpload") && (itemsFromQueryArray.length > 0 && itemsFromQueryArray[0].$templateId !== "{001AC668-10ED-438D-A1A5-2774CFF7C7D4}")));
+            });
         },
 
         getTotalSize: function () {
@@ -289,6 +317,7 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
 
             this.model.set("totalSize", this.getTotalSize());
             this.model.set("uploadedSize", 0);
+            this.getUploadEnabled(); //XAContext change
         },
 
         refreshNumberFiles: function (isUploading) {
