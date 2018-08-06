@@ -13,7 +13,12 @@
             string queryString = WebUtil.GetQueryString("ro");
             #region Modified code
             string queryString2 = "";
-            string supportQueryString = new System.Uri(HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["fo"]).Query;
+            string queryFo = HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["fo"];
+            string supportQueryString = null;
+            if (!string.IsNullOrEmpty(queryFo))
+            {
+                supportQueryString = new System.Uri(HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["fo"])?.Query;
+            }
             #endregion
             bool showFullPath = GetShowFullPath(queryString2);
             string queryString3 = WebUtil.GetQueryString("hasUploaded");
@@ -46,12 +51,19 @@
             string format = before + separator + text + separator + after;
             #region Added code
             //take language from the selected item
-            if (!string.IsNullOrEmpty(supportQueryString))
+            try
             {
-                string itemLang = "lang=" + HttpUtility.ParseQueryString(supportQueryString)["lang"];
-                string supportQueryString2 = new System.Uri(HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["ro"]).Query;
-                string itemLangToReplace = "lang=" + HttpUtility.ParseQueryString(supportQueryString2)["lang"];
-                queryString = queryString.Replace(itemLangToReplace, itemLang);
+                if (!string.IsNullOrEmpty(supportQueryString))
+                {
+                    string itemLang = "lang=" + HttpUtility.ParseQueryString(supportQueryString)["lang"];
+                    string supportQueryString2 = new System.Uri(HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["ro"]).Query;
+                    string itemLangToReplace = "lang=" + HttpUtility.ParseQueryString(supportQueryString2)["lang"];
+                    queryString = queryString.Replace(itemLangToReplace, itemLang);
+                }
+            }
+            catch(System.Exception e)
+            {
+                Sitecore.Diagnostics.Log.Warn("Sitecore.Support.189805: " + e.Message, this);
             }
             #endregion
             UploadButton.Parameters["Click"] = string.Format(format, HttpUtility.UrlEncode(queryString), HttpUtility.UrlEncode(queryString2), showFullPath);
