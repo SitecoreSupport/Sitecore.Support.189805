@@ -11,7 +11,10 @@
         {
             RedirectOnItembucketsDisabled(ClientHost.Items.GetItem("{16227E67-F9CB-4FB7-9928-7FF6A529708E}"));
             string queryString = WebUtil.GetQueryString("ro");
-            string queryString2 = WebUtil.GetQueryString("fo");
+            #region Modified code
+            string queryString2 = "";
+            string supportQueryString = new System.Uri(HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["fo"]).Query;
+            #endregion
             bool showFullPath = GetShowFullPath(queryString2);
             string queryString3 = WebUtil.GetQueryString("hasUploaded");
             if (!string.IsNullOrEmpty(queryString3) && queryString3 == "1")
@@ -41,6 +44,16 @@
             FillCommandParts(UploadButton.Parameters["Click"], out url, out before, out after, out separator);
             string text = SetUrlContentDatabase(url, WebUtil.GetQueryString("sc_content"));
             string format = before + separator + text + separator + after;
+            #region Added code
+            //take language from the selected item
+            if (!string.IsNullOrEmpty(supportQueryString))
+            {
+                string itemLang = "lang=" + HttpUtility.ParseQueryString(supportQueryString)["lang"];
+                string supportQueryString2 = new System.Uri(HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query)["ro"]).Query;
+                string itemLangToReplace = "lang=" + HttpUtility.ParseQueryString(supportQueryString2)["lang"];
+                queryString = queryString.Replace(itemLangToReplace, itemLang);
+            }
+            #endregion
             UploadButton.Parameters["Click"] = string.Format(format, HttpUtility.UrlEncode(queryString), HttpUtility.UrlEncode(queryString2), showFullPath);
         }
     }

@@ -107,7 +107,7 @@
                 mediaBrowserOptions.Root = item;
                 mediaBrowserOptions.AllowEmpty = true;
                 #region Added code
-               // mediaBrowserOptions.SelectedItem = itemNotNull;
+                mediaBrowserOptions.SelectedItem = itemNotNull;
                 #endregion
                 SelectSiteMediaRoot(args, mediaBrowserOptions);
                 if (!string.IsNullOrEmpty(text2))
