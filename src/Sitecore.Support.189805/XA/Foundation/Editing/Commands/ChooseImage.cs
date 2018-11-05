@@ -14,7 +14,6 @@
     using Sitecore.Shell.Framework.Commands;
     using Sitecore.Web;
     using Sitecore.Web.UI.Sheer;
-    using Sitecore.XA.Foundation.Abstractions;
     using System;
     using System.Linq;
 
@@ -31,7 +30,7 @@
             {
                 context.Parameters.Add("contextItem", context.Items.First().ID.ToString());
             }
-            ServiceLocator.ServiceProvider.GetService<IContext>().ClientPage.Start(this, "Run", context.Parameters);
+            Context.ClientPage.Start(this, "Run", context.Parameters);
         }
 
         protected override void Run(ClientPipelineArgs args)

@@ -67,10 +67,6 @@
       <HintPath>..\packages\SC.Sitecore.Speak.Client.9.0.1\lib\Sitecore.Speak.Client.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.XA.Foundation.Abstractions">
-      <HintPath>..\packages\SXA90.Sitecore.XA.Foundation.Abstractions.1.6.0\lib\Sitecore.XA.Foundation.Abstractions.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Sitecore.XA.Foundation.Editing">
       <HintPath>..\packages\SXA90.Sitecore.XA.Foundation.Editing.1.6.0\lib\Sitecore.XA.Foundation.Editing.dll</HintPath>
       <Private>False</Private>
