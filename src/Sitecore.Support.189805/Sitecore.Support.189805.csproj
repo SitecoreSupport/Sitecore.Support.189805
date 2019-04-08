@@ -43,43 +43,43 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Microsoft.Extensions.DependencyInjection.Abstractions.9.0.1\lib\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\packages\SC.Microsoft.Extensions.DependencyInjection.Abstractions.9.0.2\lib\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.ExperienceEditor, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Sitecore.ExperienceEditor.9.0.1\lib\Sitecore.ExperienceEditor.dll</HintPath>
+    <Reference Include="Sitecore.ExperienceEditor">
+      <HintPath>..\packages\SC.Sitecore.ExperienceEditor.9.0.2\lib\Sitecore.ExperienceEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>..\packages\SC.Sitecore.Kernel.9.0.1\lib\Sitecore.Kernel.dll</HintPath>
+      <HintPath>..\packages\SC.Sitecore.Kernel.9.0.2\lib\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.Mvc, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Sitecore.Mvc.9.0.1\lib\Sitecore.Mvc.dll</HintPath>
+    <Reference Include="Sitecore.Mvc">
+      <HintPath>..\packages\SC.Sitecore.Mvc.9.0.2\lib\Sitecore.Mvc.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.Speak.Applications, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Sitecore.Speak.Applications.9.0.1\lib\Sitecore.Speak.Applications.dll</HintPath>
+    <Reference Include="Sitecore.Speak.Applications">
+      <HintPath>..\packages\SC.Sitecore.Speak.Applications.9.0.2\lib\Sitecore.Speak.Applications.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Speak.Client">
-      <HintPath>..\packages\SC.Sitecore.Speak.Client.9.0.1\lib\Sitecore.Speak.Client.dll</HintPath>
+      <HintPath>..\packages\SC.Sitecore.Speak.Client.9.0.2\lib\Sitecore.Speak.Client.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.XA.Foundation.Abstractions, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SXA90.Sitecore.XA.Foundation.Abstractions.1.7.0\lib\Sitecore.XA.Foundation.Abstractions.dll</HintPath>
+    <Reference Include="Sitecore.XA.Foundation.Abstractions">
+      <HintPath>..\packages\SXA90.Sitecore.XA.Foundation.Abstractions.1.8.0\lib\Sitecore.XA.Foundation.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.XA.Foundation.Editing, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SXA90.Sitecore.XA.Foundation.Editing.1.7.0\lib\Sitecore.XA.Foundation.Editing.dll</HintPath>
+    <Reference Include="Sitecore.XA.Foundation.Editing">
+      <HintPath>..\packages\SXA90.Sitecore.XA.Foundation.Editing.1.8.0\lib\Sitecore.XA.Foundation.Editing.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc">
-      <HintPath>..\packages\SC.System.Web.Mvc.9.0.1\lib\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\SC.System.Web.Mvc.9.0.2\lib\System.Web.Mvc.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
