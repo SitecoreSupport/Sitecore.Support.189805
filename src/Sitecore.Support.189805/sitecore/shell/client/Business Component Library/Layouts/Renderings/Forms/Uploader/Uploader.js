@@ -263,6 +263,10 @@ define(["sitecore", "jqueryui", "fileUpload", "iFrameTransport"], function (_sc,
                 selectedDestinationUrlParts,
                 i;
 
+            if (!this.model.get("destinationUrl")) {
+                return;
+            }
+
             this.model.set("uploadEnabled", false);
 
             databaseUri = new _sc.Definitions.Data.DatabaseUri("master"),
